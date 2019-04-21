@@ -1,0 +1,30 @@
+entity Projeto is
+	port (a,b: in bit_vector (3 downto 0);
+			cin : in bit;
+			s: out bit_vector (3 downto 0);
+			cout: out bit);
+end Projeto;
+
+architecture somador of Projeto is 
+component somador is
+	port (a,b,cin: in bit;
+			s,cout: out bit);
+end component;
+signal c:bit_vector (4 downto 0);
+	begin
+	--u1: somador port map(a=> a(0),b=> b(0),cin=> cin(0),s=> s(0),cout=> cout(1));
+	--u2: somador port map(a=> a(1),b=> b(1),cin=> cin(1),s=> s(1),cout=> cout(2));
+	--u3: somador port map(a=> a(2),b=> b(2),cin=> cin(2),s=> s(2),cout=> cout(3));
+	--u4: somador port map(a=> a(3),b=> b(3),cin=> cin(3),s=> s(3),cout=> cout(4));
+	--c(0)<=cin;
+	--cout<=c(4);
+	s(0)<= a(0)xor b(0)xor c(0);
+	c(1)<=((a(0)xor b(0)) and c(0)or (a(0)and b(0));
+	s(1)<= a(1)xor b(1)xor c(1);
+	c(2)<=((a(1)xor b(1)) and c(1)or (a(1)and b(1));
+	s(2)<= a(2)xor b(2)xor c(2);
+	c(3)<=((a(2)xor b(2)) and c(2)or (a(2)and b(2));
+	s(3)<= a(3)xor b(3)xor c(3);
+	c(4)<=((a(3)xor b(3)) and c(3)or (a(3)and b(3));
+	
+end somador;

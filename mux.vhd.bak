@@ -1,0 +1,41 @@
+entity mux is
+	port (soma, subtracao, invertido : in bit_vector(3 downto 0);
+			carrySoma, carrySub, maiorque, menorque, ld : in bit;
+			key: in bit_vector(2 downto 0);
+			resultadoDisplay: out bit_vector(3 downto 0);
+			ctrl: out bit_vector(2 downto 0);			
+			cout: out bit);
+end mux;
+
+--CÓDIGOS DA CHAVE :
+	--000 : somador
+	--001: subtrador
+	--010: maior
+	--100: menor
+	--111: inversor
+
+architecture mult of mux is
+begin 
+	--resultado de soma
+	resultadoDisplay(0) <= (ld and (not key(0) and not key(1) and not key(2)) and (soma(0));
+	resultadoDisplay(1) <= (ld and (not key(0) and not key(1) and not key(2)) and (soma(1));
+	resultadoDisplay(2) <= (ld and (not key(0) and not key(1) and not key(2)) and (soma(2));
+	resultadoDisplay(3) <= (ld and (not key(0) and not key(1) and not key(2)) and (soma(3));
+	cout <= (ld and (not key(0) and not key(1) and not key(2)) and carrySoma);
+	-- resultado de subtracao
+	resultadoDisplay(0) <= (ld and (key(0) and not key(1) and not key(2)) and (subtracao(0));
+	resultadoDisplay(1) <= (ld and (key(0) and not key(1) and not key(2)) and (subtracao(1));
+	resultadoDisplay(2) <= (ld and (key(0) and not key(1) and not key(2)) and (subtracao(2));
+	resultadoDisplay(3) <= (ld and (key(0) and not key(1) and not key(2)) and (subtracao(3));
+	cout <= (ld and (key(0) and not key(1) and not key(2)) and carrySub);
+	-- resultado inversor
+	resultadoDisplay(0) <= (ld and (key(0) and key(1) and key(2)) and (invertido(0));
+	resultadoDisplay(1) <= (ld and (key(0) and key(1) and key(2)) and (invertido(1));
+	resultadoDisplay(2) <= (ld and (key(0) and key(1) and key(2)) and (invertido(2));
+	resultadoDisplay(3) <= (ld and (key(0) and key(1) and key(2)) and (invertido(3));
+	cout <= (ld and (key(0) and key(1) and key(2)) and (not maiorque and not menorque);
+	-- resultado maior
+	cout <= (ld and (not key(0) and key(1) and not key(2))) and maiorque;
+	-- resultado menor
+	cout <= (ld and (not key(0) and key(1) and not key(2))) and menorque;
+end mult;
